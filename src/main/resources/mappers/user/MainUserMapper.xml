@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sizatn.springdemo.module.user.mapper.MainUserMapper">
+	<resultMap id="User" type="com.sizatn.springdemo.module.user.entity.User">
+		<id property="id" column="ID" jdbcType="INTEGER" />
+        <result property="userNo" column="user_no" jdbcType="VARCHAR" />
+        <result property="userName" column="user_name" jdbcType="VARCHAR" />
+        <result property="password" column="password" jdbcType="VARCHAR" />
+        <result property="gender" column="gender" jdbcType="VARCHAR" />
+        <result property="phone" column="phone" jdbcType="VARCHAR" />
+        <result property="mobile" column="mobile" jdbcType="VARCHAR" />
+        <result property="enabled" column="enabled" jdbcType="VARCHAR" />
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP" />
+        <result property="updateDate" column="update_date" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectMainTable" resultMap="User">
+		SELECT * FROM  user
+	</select>
+	
+</mapper>

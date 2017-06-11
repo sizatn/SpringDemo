@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<!-- ========================== Custom output format description ================================ -->
+	<!-- %p Outputs the level of the logging event，that is: DEBUG，INFO，WARN，ERROR，FATAL -->
+	<!-- %r Outputs the number of milliseconds -->
+	<!-- %c Outputs the name of the logger that published the logging event -->
+	<!-- %C Outputs the fully qualified class name of the caller issuing the logging request -->
+	<!-- %m Outputs the application supplied message associated with the logging event -->
+	<!-- %M Outputs the method name where the logging request was issued -->
+	<!-- %n Outputs the platform dependent line separator character or characters，Windows is "/r/n"，Unix is "/n" -->
+	<!-- %d Outputs log date or time，default format is ISO8601，it can custom format，like %d{yyyy-MM-dd HH:mm:ss,SSS}，output style: 2002-11-02 14:34:02,781 -->
+	<!-- %L Outputs the line number from where the logging request was issued, for example: Testlog4.main(TestLog4.java:10) -->
+	<!-- =========================================================================================== -->
+
+	<!-- ========================== Appender description ================================ -->
+	<!-- Log4j provides the following appenders: -->
+	<!-- org.apache.log4j.ConsoleAppender (append log events to System.out or System.err using a layout specified by the user), -->
+	<!-- org.apache.log4j.FileAppender (append log events to a file), -->
+	<!-- org.apache.log4j.DailyRollingFileAppender (the underlying file is rolled over at a user chosen frequency), -->
+	<!-- org.apache.log4j.RollingFileAppender (backup the log files when they reach a certain size), -->
+	<!-- org.apache.log4j.WriterAppender (append log events to a Writer or an OutputStream depending on the user's choice) -->
+	<!-- ============================================================================== -->
+
+	<!-- ConsoleAppender -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS}[%p]:[%C-%M][line:%L] %m%n" />
+		</layout>
+	</appender>
+
+	<!-- FileAppender -->
+	<appender name="file" class="com.sizatn.springdemo.common.log.DailyRollingLogInDirAppender">
+		<param name="Threshold" value="info" />
+		<param name="File" value="logs/log.log" />
+		<param name="DatePattern" value="yyyyMMdd" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss:SSS}[%p]:[%C-%M][line%L] %m%n" />
+		</layout>
+	</appender>
+	
+	<root>
+		<priority value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+</log4j:configuration>
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+	<!-- load properties -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:springdemo.properties" />
+	
+	<!-- only scan package @Controller, use "," to separate if have more base-packages -->
+	<context:component-scan base-package="com.sizatn.springdemo" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<mvc:resources mapping="js/**" location="/WEB-INF/js/" />
+
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                	<list><value>application/json;charset=UTF-8</value></list>
+                </property>
+                <property name="prettyPrint" value="false"/>
+                <property name="objectMapper">  
+                    <bean class="com.sizatn.springdemo.common.utils.JsonMapper" />  
+                </property> 
+            </bean>
+            <!-- 使用XML格式输出数据 -->
+            <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+		        <constructor-arg>
+		        	<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+				        <property name="streamDriver">
+				            <bean class="com.thoughtworks.xstream.io.xml.StaxDriver"/>
+				        </property>
+				    </bean>
+		        </constructor-arg>
+		        <property name="supportedMediaTypes" value="application/xml" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="${view.prefix}" />
+		<property name="suffix" value="${view.suffix}" />
+	</bean>
+	
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+	    <property name="mediaTypes" >
+	        <map> 
+                <entry key="xml" value="application/xml"/> 
+                <entry key="json" value="application/json"/> 
+            </map>
+	    </property>
+        <property name="ignoreAcceptHeader" value="true"/>
+	</bean>
+	
+	<bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+
+	<bean id="marshallingView" class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<property name="marshaller">
+			<bean class="org.springframework.oxm.xstream.XStreamMarshaller" />
+		</property>
+	</bean>
+	
+</beans>

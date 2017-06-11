@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<description>Mail Configuration</description>	
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    	<property name="host" value="${sender.host}" />
+    	<property name="username" value="${sender.email.username}" />
+    	<property name="password" value="${sender.email.password}" />
+    </bean>
+    
+    <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${sender.email.username}" />
+        <property name="to" value="${receiver.email}" />
+    </bean>
+    
+    <bean class="com.sizatn.springdemo.module.mail.mailService.SendMail">
+    	<property name="mailSender" ref='mailSender' />
+    </bean>
+    
+</beans>

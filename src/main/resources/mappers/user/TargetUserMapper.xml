@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sizatn.springdemo.module.user.mapper.TargetUserMapper">
+	<resultMap id="User" type="com.sizatn.springdemo.module.user.entity.User">
+		<id property="id" column="ID" jdbcType="INTEGER" />
+        <result property="userNo" column="user_no" jdbcType="VARCHAR" />
+        <result property="userName" column="user_name" jdbcType="VARCHAR" />
+        <result property="password" column="password" jdbcType="VARCHAR" />
+        <result property="gender" column="gender" jdbcType="VARCHAR" />
+        <result property="phone" column="phone" jdbcType="VARCHAR" />
+        <result property="mobile" column="mobile" jdbcType="VARCHAR" />
+        <result property="enabled" column="enabled" jdbcType="VARCHAR" />
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP" />
+        <result property="updateDate" column="update_date" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectTargetTable" resultMap="User">
+		SELECT * FROM user
+	</select>
+	
+	<update id="updateTargetTable">
+        UPDATE user SET user_name = #{userName}, password = #{password}, gender = #{gender},
+        phone = #{phone}, mobile = #{mobile}, enabled = #{enabled}, update_date = NOW()  WHERE user_no = #{userNo}
+	</update>
+	
+	<insert id="insertTargetTable">
+		INSERT INTO user (user_no, user_name, password, gender, phone, mobile, enabled, update_date) VALUES 
+		(#{userNo}, #{userName}, #{password}, #{gender}, #{phone}, #{mobile}, #{enabled}, NOW()) 
+	</insert>
+	
+</mapper>
