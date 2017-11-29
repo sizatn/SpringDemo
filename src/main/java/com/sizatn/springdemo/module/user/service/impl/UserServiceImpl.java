@@ -30,10 +30,10 @@ public class UserServiceImpl implements UserService {
 	private String oneTimeRun;
 	private String run;
 
-	@Resource
+	@Resource(name = "mainUserMapper")
 	private MainUserMapper mainUserMapper;
-	
-	@Resource
+
+	@Resource(name = "targetUserMapper")
 	private TargetUserMapper targetUserMapper;
 	
 	@Override
