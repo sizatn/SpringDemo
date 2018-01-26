@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Lazy(false)
-public class IdUtils {
+public class IDUtils {
 
 	private static SecureRandom random = new SecureRandom();
 

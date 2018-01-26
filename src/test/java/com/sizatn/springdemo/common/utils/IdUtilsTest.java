@@ -6,17 +6,17 @@ public class IdUtilsTest {
 
 	@Test
 	public void testUuid() {
-		System.out.println(IdUtils.uuid());
+		System.out.println(IDUtils.uuid());
 	}
 
 	@Test
 	public void testRandomLong() {
-		System.out.println(IdUtils.randomLong());
+		System.out.println(IDUtils.randomLong());
 	}
 
 	@Test
 	public void testRandomBase62() {
-		System.out.println(IdUtils.randomBase62(32));
+		System.out.println(IDUtils.randomBase62(32));
 	}
 
 }
