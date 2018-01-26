@@ -1322,7 +1322,6 @@ public class ImageUtils {
 		return result;
 	}
 	
-	
 	/**
 	 * 生成地图图片
 	 */
